@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Tic-Tac-Toe, tic tac toe game">
+    <meta name="keywords" content="html, css, javascripts, Tic-Tac-Toe, Tic-Tac-Toe game" >
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Assignment 13</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+
+    <div class="game">
+        <!--------------- select player mode ---------------->
+        <div class="select-player-box">
+            <input type="radio" id="player-mode" value="player" onclick="select_mode('player')">with Player
+            <input type="radio" id="computer-mode" value="computer" onclick="select_mode('computer')">with Computer
+        </div>
+
+        <div class="show-score">
+            <p class="player">X score: <b id="score-x">0</b> </p>
+            <p class="player">draw score: <b id="score-draw">0</b> </p>
+            <p class="player">O score: <b id="score-o">0</b> </p>
+        </div>
+        <h3 id="result"></h3>
+        <table border="2px">
+            <tr>
+                <td> 
+                    <button class="cell" onclick="play(0,0)"></button>
+                </td>
+                <td>
+                    <button class="cell" onclick="play(0,1)"></button>
+                </td>
+                <td>
+                    <button class="cell" onclick="play(0,2)"></button>
+                </td>
+            </tr>
+    
+            <tr>
+                <td>
+                    <button class="cell" onclick="play(1,0)"></button>
+                </td>
+                <td>
+                    <button class="cell" onclick="play(1,1)"></button>
+                </td>
+                <td>
+                    <button class="cell" onclick="play(1,2)"></button>
+                </td>
+            </tr>
+    
+            <tr>
+                <td>
+                    <button class="cell" onclick="play(2,0)"></button>
+                </td>
+                <td>
+                    <button class="cell" onclick="play(2,1)"></button>
+                </td>
+                <td>
+                    <button class="cell" onclick="play(2,2)"></button>
+                </td>
+            </tr>
+        </table>
+        <button onclick="Reset_game()" class="reset_game">Reset Game</button>
+    </div>
+
+    <!------------------------ Shadow ------------------------------>
+    <div class="shadow">
+        <!------------------------ Pop up ---------------------------->
+        <div class="popup">
+            <img src="images/tic-tac-toe-javascript.jpg" id="banner-game">
+            <img src="images/play-icon.png" id="play-game-icon">
+        </div> 
+    </div>
+
+
+     <script src="js/jquery.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
