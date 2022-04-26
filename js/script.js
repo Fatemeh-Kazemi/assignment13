@@ -16,9 +16,10 @@ var score_o= document.getElementById('score-o');
 var score_draw= document.getElementById('score-draw');
 var score_x_counter=0, score_o_counter= 0, score_draw_counter= 0;
 var cells= document.getElementsByClassName('cell');
-var time = 0;
 var result = document.getElementById("result");
+var time = 0;
 var gameend=false;
+var ply= "X";    // نوبت کدام بازیکن؟
 
 // UI - frontEnd
 var buttons= [[cells[0], cells[1], cells[2]],
@@ -30,13 +31,9 @@ var flags= [[null, null, null],
             [null, null, null],
             [null, null, null]];
 
-var ply= "X";    // نوبت کدام بازیکن؟
-
 var player_mode = document.getElementById('player-mode');    // radio button player
 var computer_mode = document.getElementById('computer-mode');    // radio button computer
 var play_mode;     // save for which mode?
-
-
 
 // select player mode
 function select_mode(selectMode){
@@ -50,14 +47,13 @@ function select_mode(selectMode){
     }
 }
 
-
 // random number
 function randomNumber(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
 // random play
 function computer(){
-    if(time < 9){
+    if(time < 9 && gameend==false){
         var i = randomNumber(0,3);
         var j = randomNumber(0,3);
         console.log(i, j)
@@ -69,10 +65,10 @@ function computer(){
         } 
         else {
             computer()
-        }  
+        }
+        check_game();  
     }
 }
-
 
 // start play
 function play(x, y){
@@ -85,6 +81,7 @@ function play(x, y){
                     buttons[x][y].classList.add("X");
                     ply= "O";
                     time++;
+                    check_game();
                 }
                 else if(ply == "O"){
                     flags[x][y]= "O";
@@ -92,6 +89,7 @@ function play(x, y){
                     buttons[x][y].classList.add("O");
                     ply= "X";
                     time++;
+                    check_game();
                 }
             }
             else if(play_mode == "computer"){
@@ -99,26 +97,25 @@ function play(x, y){
                     flags[x][y]= "X";
                     buttons[x][y].innerHTML= "X";
                     buttons[x][y].classList.add("X");
-                    ply= "O";
                     time++;
-    
-                    computer();
+                    
+                    check_game();
+                    if(gameend==false){
+                        ply= "O";
+                        computer();
+                    }
                 }
                 else if(ply == "O"){   // play with computer
-                    flags[x][y]= "O";
-                    buttons[x][y].innerHTML= "O";
-                    buttons[x][y].classList.add("O");
-                    ply= "X";
-                    time++;
+                    
                 }
             }
             else{
                 alert("select mode player")
             }
-            check_game();
         }
     }
 }
+
 
 function check_game(){
     //check game for X player
@@ -236,6 +233,34 @@ function check_game(){
     
 }
 
+
 function Reset_game(){
-    document.location.reload(true)
+
+    // remove content of variable
+    time = 0;
+    ply = "X"
+    gameend=false;
+    play_mode = null;
+
+    // remove radio buttons mode
+    player_mode.disabled = false;
+    player_mode.checked = false;
+    computer_mode.disabled = false;
+    computer_mode.checked = false;
+    result.innerHTML = "";
+
+    // remove class X and O of butoons
+    for(var i = 0 ; i < 3 ; i++)
+    {
+        for(var j = 0 ; j < 3 ; j++)
+        {
+            buttons[i][j].disabled = false;
+            buttons[i][j].classList.remove("X");
+            buttons[i][j].classList.remove("O");
+            buttons[i][j].innerHTML= "";
+            flags[i][j]= null;
+        }
+    }
+
+    //document.location.reload(true)
 }
